@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect, useReducer, createContext } from "react";
 import initialModel from "../models/NewsLetterFormModel";
 import actions from "../models/actions/NewsLetterFormAction";
 import reducer from "../models/reducers/NewsLetterFormReducer";
-import View from "../pages/NewsLetterFormView";
+// import View from "../pages/NewsLetterFormView";
+
+export const ControllerContext = createContext();
 
 const news = [
   {
@@ -27,7 +29,7 @@ const toNewsletterOption = (newsletter) => {
   };
 };
 
-const NewsLetterFormController = () => {
+const NewsLetterFormController = ({ children }) => {
   const [model, dispatch] = useReducer(reducer, initialModel);
   const [newsletters, setNewsletters] = useState([]);
 
@@ -50,16 +52,14 @@ const NewsLetterFormController = () => {
     });
   };
 
-  const handleSubmit = () => {
+  const submit = () => {
     window.alert("hello!");
   };
 
   return (
-    <View
-      model={model}
-      onFieldChange={handleFieldChange}
-      onSubmit={handleSubmit}
-    />
+    <ControllerContext.Provider value={{ model, handleFieldChange, submit }}>
+      {children}
+    </ControllerContext.Provider>
   );
 };
 

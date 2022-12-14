@@ -1,10 +1,13 @@
 import React from "react";
 import Container from "@material-ui/core/Container";
-import NewsletterFormController from "./controllers/NewsLetterFormController";
+import NewsLetterFormController from "./controllers/NewsLetterFormController";
+import NewsLetterFormView from "./pages/NewsLetterFormView";
 
 const App = () => (
   <Container maxWidth="sm" justify="center">
-    <NewsletterFormController />
+    <NewsLetterFormController>
+      <NewsLetterFormView />
+    </NewsLetterFormController>
   </Container>
 );
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Button from "@material-ui/core/Button";
@@ -8,6 +8,7 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import { ControllerContext } from "../controllers/NewsLetterFormController";
 
 const useStyles = makeStyles((theme) => ({
   formField: {
@@ -15,35 +16,34 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NewsLetterFormView = (props) => {
+const NewsLetterFormView = () => {
   const classes = useStyles();
-
+  const context = useContext(ControllerContext);
+  const [selectedNewsletter, setSelectedNewsletter] = useState("");
   const {
     model: {
       isLoading,
       isValid,
       fields: { newsletter },
     },
-    onFieldChange,
-    onSubmit,
-  } = props;
-
-  const [selectedNewsletter, setSelectedNewsletter] = useState("");
+    handleFieldChange,
+    submit,
+  } = context;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit();
+    submit();
   };
 
   const handleFullNameChange = (e) => {
     e.preventDefault();
-    onFieldChange({ field: "fullName", value: e.target });
+    handleFieldChange({ field: "fullName", value: e.target });
   };
 
   const handleNewsletterChange = (e) => {
     e.preventDefault();
     setSelectedNewsletter(e.target.value);
-    onFieldChange({ field: "newsletter", value: e.target });
+    handleFieldChange({ field: "newsletter", value: e.target });
   };
 
   return (
