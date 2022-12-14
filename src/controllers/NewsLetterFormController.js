@@ -4,8 +4,6 @@ import actions from "../models/actions/NewsLetterFormAction";
 import reducer from "../models/reducers/NewsLetterFormReducer";
 // import View from "../pages/NewsLetterFormView";
 
-export const ControllerContext = createContext();
-
 const news = [
   {
     code: "christmasSpecials",
@@ -63,4 +61,5 @@ const NewsLetterFormController = ({ children }) => {
   );
 };
 
+export const ControllerContext = createContext();
 export default NewsLetterFormController;
